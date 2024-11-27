@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONLINE Shopping Mall</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <!-- Menu Icon -->
+        <a href="#" class="nav">
+            <img src="image/menu.png" alt="Menu Icon">
+        </a>
+
+        <!-- Cart Modal -->
+        <div id="cart-modal" class="cart-modal">
+    <div class="cart-content">
+        <h2>Shopping Cart</h2>
+        <ul id="cart-items"></ul> <!-- List for cart items -->
+        <p id="total-price">Total: ₹0</p>
+        <button onclick="closeCart()">Close</button>
+    </div>
+</div>
+
+
+        <!-- Cart Icon -->
+        <a href="#" class="cart">
+            <img src="image/cart.png" alt="Cart Icon">
+            <span id="cart-count">0</span> <!-- Cart count -->
+        </a>
+ <!-- Login Section -->
+            <a href="loginpage.html" class="login-container">
+            <img src="image/user-solid.svg" class="login-link" >
+            </a>
+            
+        </class=>
+
+        <div id="Bar">manibar.COM</div>
+
+        <!-- Navigation Menu -->
+        <ul class="menu">
+            <li class="menu-item">
+                <h3>Mens' Wear</h3>
+                <ul class="submenu">
+                    <li><a href="mens-cloths.html">clothes</a></li>
+                    <li><a href="mens-shoes.html">Shoes</a></li>
+                    <li><a href="mens-accessories.html">Accessories</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <h3>Womens' Wear</h3>
+                <ul class="submenu">
+                    <li><a href="womens-shirts.html">clothes</a></li>
+                    <li><a href="womens-shoes.html">Shoes</a></li>
+                    <li><a href="womens-accessories.html">Accessories</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <h3>Laptop's</h3>
+                <ul class="submenu">
+                    <li><a href="Laptops.html">Windows</a></li>
+                    <li><a href="Laptops.html">Apple</a></li>
+                    <li><a href="Laptops.html">Accessories</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                 <h3>Smart phone's</h3>
+                <ul class="submenu">
+                    <li><a href="products.html">Realme</a></li>
+                    <li><a href="products.html">MI</a></li>
+                    <li><a href="products.html">Vivo</a></li>
+                    <li><a href="Mobile-accessories.html">Accessories</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Search Box -->
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Search...">
+            <button class="search-button">Search</button>
+        </div>
+
+       
+    </header>
+
+    <!-- Banner Slider -->
+    <div class="slider-container">
+        <div class="slide">
+            <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/cnnjpp/770x350_mob_store_header.jpg" 
+                alt="Banner 1" class="image">
+        </div>
+        <div class="slide">
+            <img src="image/canva.webp" alt="Banner 2" class="image">
+        </div>
+        <div class="slide">
+            <img src="image/Burberry11.avif" alt="Banner 3" class="image">
+        </div>
+
+        <!-- Slider Navigation Arrows -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+        <!-- Slider Dots -->
+        <div class="dots">
+            <span class="dot active-dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <main>
+        <div id="container">
+            <!-- Product List -->
+            <div>
+                <img src="image/download.jpeg" alt="Jeans" class="products">
+                <h1 class="name">Jeans Pant</h1>
+                <p class="price">₹1,000</p>
+                <button 
+                    class="add-to-cart-btn" 
+                    data-name="Jeans Pant" 
+                    data-price="1000" 
+                    data-image="image/download.jpeg">
+                    Add to Cart
+                </button>
+            </div>
+        
+            <div>
+                <img src="image/--TShirt-Yellow" alt="T-shirt" class="products">
+                <h1 class="name">T-shirt</h1>
+                <p class="price">₹500</p>
+                <button 
+                    class="add-to-cart-btn" 
+                    data-name="T-shirt" 
+                    data-price="500" 
+                    data-image="image/--TShirt-Yellow">
+                    Add to Cart
+                </button>
+            </div>
+        
+            <div>
+                <img src="image/watch.jfif" alt="Fast Track Watch" class="products">
+                <h1 class="name">Fast Track Watch</h1>
+                <p class="price">₹15,000</p>
+                <button 
+                    class="add-to-cart-btn" 
+                    data-name="Fast Track Watch" 
+                    data-price="15000" 
+                    data-image="image/watch.jfif">
+                    Add to Cart
+                </button>
+            </div>
+        
+            <div>
+                <img src="image/shirt" alt="Shirt" class="products">
+                <h1 class="name">Shirt</h1>
+                <p class="price">₹699</p>
+                <button 
+                    class="add-to-cart-btn" 
+                    data-name="Shirt" 
+                    data-price="699" 
+                    data-image="image/shirt">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div>
+                <img src="image/shoes.webp" alt="Paragon Shoes" class="products">
+                <h1 class="name">Paragon Shoes</h1>
+                <p class="price">₹8,500</p>
+                <button 
+                    class="add-to-cart-btn" 
+                    data-name="Paragon Shoes" 
+                    data-price="8500" 
+                    data-image="image/shoes.webp">
+                    Add to Cart
+                </button>
+            </div>
+        
+            <div>
+                <img src="image/Rolex watch.jpg" alt="Rolex Watch" class="products">
+                <h1 class="name">Rolex Watch</h1>
+                <p class="price">₹25,500</p>
+                <button 
+                    class="add-to-cart-btn" 
+                    data-name="Rolex Watch" 
+                    data-price="25500" 
+                    data-image="image/Rolex watch.jpg">
+                    Add to Cart
+                </button>
+            </div>
+        
+            <div>
+                <img src="image/shoes.webp" alt="Paragon Shoes" class="products">
+                <h1 class="name">Paragon Shoes</h1>
+                <p class="price">₹8,500</p>
+                <button 
+                    class="add-to-cart-btn" 
+                    data-name="Paragon Shoes" 
+                    data-price="8500" 
+                    data-image="image/shoes.webp">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer>
+        <div class="shop">Shop Now Non-Stop!</div>
+        <div class="play">
+            <a href="#"><img src="image/play tore.png"class="play" ></a>
+            </div>
+
+            <div class="App">
+            <a href="#"><img src="image/app store.jpg" class="App" ></a>
+        </div>
+        <div id="contact-info">
+            <p>Contact us: 9550921---</p>
+            <p>Email: <a href="mailto:vigneshchary35@mail.com">vigneshchary35@mail.com</a></p>
+            <p>Address: </p>
+        </div>
+    </footer>
+
+    <script src="Manibar.js"></script>
+</body>
+</html>
