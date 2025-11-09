@@ -1,147 +1,139 @@
+// ==========================
+// CART FUNCTIONALITY
+// ==========================
+
 // Initialize cart as an empty array
 let cart = [];
 
-// Function to update the cart count display
+// Update cart count beside icon
 function updateCartCount() {
     const cartCountElement = document.getElementById('cart-count');
-    if (cartCountElement) {
-        cartCountElement.innerText = cart.length;
-    }
+    if (cartCountElement) cartCountElement.innerText = cart.length;
 }
 
-// Function to add an item to the cart
+// Add item to cart
 function addToCart(name, price, image) {
-    price = parseFloat(price); // Ensure price is a number
+    price = parseFloat(price);
     const existingItem = cart.find(item => item.name === name);
+
     if (existingItem) {
-        existingItem.quantity += 1; // Increase quantity if item already exists
+        existingItem.quantity++;
     } else {
-        cart.push({ name, price, quantity: 1, image }); // Add new item, including the image URL
+        cart.push({ name, price, quantity: 1, image });
     }
-    alert(`${name} has been added to the cart!`);
-    updateCartCount(); // Update cart count display
+
+    updateCartCount();
+    alert(`${name} added to cart!`);
 }
 
-// Function to update the cart count and total price dynamically
-function updateCart() {
-  updateCartCount();
-  displayCart();
-}
-
-// Function to increase or decrease item quantity
+// Increase or decrease quantity
 function updateItemQuantity(name, operation) {
-  const item = cart.find(product => product.name === name);
-  if (item) {
-      if (operation === 'increase') {
-          item.quantity += 1;
-      } else if (operation === 'decrease') {
-          item.quantity -= 1;
-          if (item.quantity <= 0) {
-              // Remove item from the cart if quantity becomes 0
-              cart = cart.filter(product => product.name !== name);
-          }
-      }
-  }
-  updateCart(); // Re-render the cart modal
-}
+    const item = cart.find(product => product.name === name);
+    if (!item) return;
 
-
-// Function to display cart items in the cart modal
-function displayCart() {
-    const cartModal = document.getElementById('cart-modal');
-    const cartItems = document.getElementById('cart-items');
-    const totalPriceElement = document.getElementById('total-price');
-
-    // Clear existing items
-    cartItems.innerHTML = '';
-
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<p>Your cart is empty.</p>';
-        totalPriceElement.textContent = '';
-    } else {
-        // Display each item in the cart
-        let totalPrice = 0;
-        cart.forEach(item => {
-            const li = document.createElement('li');
-
-            // Create a container for the item
-            const itemContainer = document.createElement('div');
-            itemContainer.classList.add('cart-item-container');
-
-            // Add product image
-            const img = document.createElement('img');
-            img.src = item.image;
-            img.alt = item.name;
-            img.classList.add('cart-item-image');
-            itemContainer.appendChild(img);
-
-            // Add product details (name, price, quantity)
-            const details = document.createElement('div');
-            details.innerHTML = `
-                <p><strong>${item.name}</strong></p>
-                <p>₹${item.price.toFixed(2)} x ${item.quantity}</p>
-            `;
-            itemContainer.appendChild(details);
-
-            // Append the container to the list item
-            li.appendChild(itemContainer);
-            cartItems.appendChild(li);
-
-            totalPrice += item.price * item.quantity;
-        });
-
-        totalPriceElement.textContent = `Total: ₹${totalPrice.toFixed(2)}`;
+    if (operation === 'increase') item.quantity++;
+    if (operation === 'decrease') {
+        item.quantity--;
+        if (item.quantity <= 0) cart = cart.filter(p => p.name !== name);
     }
 
-    cartModal.style.display = 'block'; // Show the cart modal
+    displayCart();
+    updateCartCount();
 }
 
-// Function to open the cart
+// Remove product from cart
+function removeItem(name) {
+    cart = cart.filter(item => item.name !== name);
+    displayCart();
+    updateCartCount();
+}
+
+// Open Cart Modal
 function openCart() {
     displayCart();
+    document.getElementById('cart-modal').style.display = 'block';
 }
 
-// Function to close the cart
+// Close Cart Modal
 function closeCart() {
     document.getElementById('cart-modal').style.display = 'none';
 }
 
-// Attach event listeners to all "Add to Cart" buttons
+// Show cart items in modal
+function displayCart() {
+    const cartItems = document.getElementById('cart-items');
+    const totalPriceElement = document.getElementById('total-price');
+
+    cartItems.innerHTML = '';
+
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p>Your cart is empty.</p>';
+        totalPriceElement.textContent = 'Total: ₹0';
+        return;
+    }
+
+    let totalPrice = 0;
+
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="cart-item-container">
+                <img src="${item.image}" class="cart-item-image">
+                <div>
+                    <p><strong>${item.name}</strong></p>
+                    <p>₹${item.price}</p>
+                </div>
+                <div class="cart-controls">
+                    <button class="quantity-btn" onclick="updateItemQuantity('${item.name}', 'decrease')">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="quantity-btn" onclick="updateItemQuantity('${item.name}', 'increase')">+</button>
+                    <button class="remove-btn" onclick="removeItem('${item.name}')">x</button>
+                </div>
+            </div>
+        `;
+
+        cartItems.appendChild(li);
+
+        totalPrice += item.price * item.quantity;
+    });
+
+    totalPriceElement.textContent = `Total: ₹${totalPrice}`;
+}
+
+// Attach Add-to-Cart Buttons
 document.querySelectorAll('.add-to-cart-btn').forEach(button => {
     button.addEventListener('click', () => {
-        const productName = button.getAttribute('data-name');
-        const productPrice = button.getAttribute('data-price');
-        const productImage = button.getAttribute('data-image'); // Get the image URL
-        addToCart(productName, productPrice, productImage);
+        addToCart(
+            button.getAttribute('data-name'),
+            button.getAttribute('data-price'),
+            button.getAttribute('data-image')
+        );
     });
 });
 
-// Open the cart when the cart icon is clicked
+// Open Cart Icon
 document.querySelector('.cart').addEventListener('click', openCart);
+
 
 // ==========================
 // SLIDESHOW FUNCTIONALITY
 // ==========================
-
 let slideIndex = 0;
 showSlides(slideIndex);
 
-// Next/previous controls
 function plusSlides(n) {
     showSlides(slideIndex += n);
 }
 
-// Thumbnail image controls
 function currentSlide(n) {
     showSlides(slideIndex = n);
 }
 
-// Function to show slides
 function showSlides(n) {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
 
-    if (slides.length === 0) return; // Prevent errors if no slides exist
+    if (slides.length === 0) return;
 
     if (n >= slides.length) slideIndex = 0;
     if (n < 0) slideIndex = slides.length - 1;
@@ -155,31 +147,23 @@ function showSlides(n) {
     if (dots[slideIndex]) dots[slideIndex].classList.add('active-dot');
 }
 
-// Auto-play slides every 5 seconds
 setInterval(() => plusSlides(1), 5000);
 
+
 // ==========================
-// CATEGORY FILTER FUNCTIONALITY
+// DRAWER MENU FUNCTIONALITY
 // ==========================
+const menuBtn = document.getElementById('menu-btn');
+const drawerMenu = document.getElementById('drawer-menu');
+const drawerOverlay = document.getElementById('drawer-overlay');
 
-// Function to filter products by category
-function showCategory(category) {
-    const products = document.querySelectorAll('.product');
-
-    products.forEach(product => {
-        const productCategory = product.getAttribute('data-category');
-        product.style.display = productCategory === category ? 'block' : 'none';
-    });
-}
-
-// Attach event listeners to category links
-document.querySelectorAll('a[data-category]').forEach(link => {
-    link.addEventListener('click', event => {
-        event.preventDefault(); // Prevent page reload
-        const category = event.target.getAttribute('data-category');
-        showCategory(category);
-    });
+menuBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    drawerMenu.classList.add("open");
+    drawerOverlay.classList.add("show");
 });
 
-// Optionally, show a default category on page load
-showCategory('menswear');
+drawerOverlay.addEventListener('click', () => {
+    drawerMenu.classList.remove("open");
+    drawerOverlay.classList.remove("show");
+});
